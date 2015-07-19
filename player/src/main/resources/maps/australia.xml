@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+<map xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:noNamespaceSchemaLocation="map.xsd">
+    <point latitude="-10.703792" longitude="142.426758"/>
+    <point latitude="-14.944785" longitude="145.019531"/>
+    <point latitude="-19.020577" longitude="146.162109"/>
+    <point latitude="-20.138470" longitude="148.535156"/>
+    <point latitude="-25.443275" longitude="152.973633"/>
+    <point latitude="-28.343065" longitude="153.588867"/>
+    <point latitude="-32.472695" longitude="152.402344"/>
+    <point latitude="-33.137551" longitude="151.347656"/>
+    <point latitude="-37.474858" longitude="149.721680"/>
+    <point latitude="-37.822802" longitude="147.744141"/>
+    <point latitude="-38.925229" longitude="146.162109"/>
+    <point latitude="-37.857507" longitude="144.887695"/>
+    <point latitude="-38.754083" longitude="143.569336"/>
+    <point latitude="-37.822802" longitude="140.361328"/>
+    <point latitude="-35.567980" longitude="139.086914"/>
+    <point latitude="-35.065973" longitude="137.109375"/>
+    <point latitude="-33.174342" longitude="137.548828"/>
+    <point latitude="-34.849875" longitude="135.834961"/>
+    <point latitude="-32.398516" longitude="133.769531"/>
+    <point latitude="-31.466154" longitude="131.044922"/>
+    <point latitude="-32.101190" longitude="126.210938"/>
+    <point latitude="-34.016242" longitude="123.750000"/>
+    <point latitude="-33.797409" longitude="119.926758"/>
+    <point latitude="-35.029996" longitude="117.949219"/>
+    <point latitude="-33.906896" longitude="114.960938"/>
+    <point latitude="-32.138409" longitude="115.795898"/>
+    <point latitude="-26.627818" longitude="113.642578"/>
+    <point latitude="-24.126702" longitude="113.422852"/>
+    <point latitude="-22.105999" longitude="114.345703"/>
+    <point latitude="-20.673905" longitude="116.499023"/>
+    <point latitude="-19.518375" longitude="121.113281"/>
+    <point latitude="-16.509833" longitude="122.958984"/>
+    <point latitude="-16.088042" longitude="124.057617"/>
+    <point latitude="-14.306969" longitude="125.683594"/>
+    <point latitude="-13.838080" longitude="127.441406"/>
+    <point latitude="-14.859850" longitude="128.320313"/>
+    <point latitude="-14.817371" longitude="129.418945"/>
+    <point latitude="-12.554564" longitude="130.649414"/>
+    <point latitude="-11.652236" longitude="132.626953"/>
+    <point latitude="-12.425848" longitude="136.801758"/>
+    <point latitude="-14.902322" longitude="135.439453"/>
+    <point latitude="-17.644022" longitude="139.833984"/>
+    <point latitude="-17.434511" longitude="140.756836"/>
+    <point latitude="-13.025966" longitude="141.503906"/>
+</map>

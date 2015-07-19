@@ -1,0 +1,10 @@
+apply plugin:"application"
+
+mainClassName = "ben.momserver.Main"
+
+dependencies {
+    compile "ben.mom:mom:SNAPSHOT"
+
+    runtime project(":irs")
+}
+

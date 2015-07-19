@@ -1,0 +1,67 @@
+apply plugin: "application"
+apply plugin: "com.github.samueltbrown.cucumber"
+apply plugin: "jacoco"
+
+mainClassName = "ben.risk.player.Main"
+
+dependencies {
+    compile project(":irs")
+
+    compile "ben.mom:mom:SNAPSHOT"
+    compile "ben.ui:ui:SNAPSHOT"
+    compile "ben.math:math:SNAPSHOT"
+    compile "org.jogamp.gluegen:gluegen-rt:2.3.1"
+    compile "org.jogamp.jogl:jogl-all:2.3.1"
+
+    runtime "org.jogamp.gluegen:gluegen-rt:2.3.1:natives-android-aarch64"
+    runtime "org.jogamp.gluegen:gluegen-rt:2.3.1:natives-android-armv6"
+    runtime "org.jogamp.gluegen:gluegen-rt:2.3.1:natives-linux-amd64"
+    runtime "org.jogamp.gluegen:gluegen-rt:2.3.1:natives-linux-armv6"
+    runtime "org.jogamp.gluegen:gluegen-rt:2.3.1:natives-linux-armv6hf"
+    runtime "org.jogamp.gluegen:gluegen-rt:2.3.1:natives-linux-i586"
+    runtime "org.jogamp.gluegen:gluegen-rt:2.3.1:natives-macosx-universal"
+    runtime "org.jogamp.gluegen:gluegen-rt:2.3.1:natives-solaris-amd64"
+    runtime "org.jogamp.gluegen:gluegen-rt:2.3.1:natives-solaris-i586"
+    runtime "org.jogamp.gluegen:gluegen-rt:2.3.1:natives-windows-amd64"
+    runtime "org.jogamp.gluegen:gluegen-rt:2.3.1:natives-windows-i586"
+
+    runtime "org.jogamp.jogl:jogl-all:2.3.1:natives-android-aarch64"
+    runtime "org.jogamp.jogl:jogl-all:2.3.1:natives-android-armv6"
+    runtime "org.jogamp.jogl:jogl-all:2.3.1:natives-linux-amd64"
+    runtime "org.jogamp.jogl:jogl-all:2.3.1:natives-linux-armv6"
+    runtime "org.jogamp.jogl:jogl-all:2.3.1:natives-linux-armv6hf"
+    runtime "org.jogamp.jogl:jogl-all:2.3.1:natives-linux-i586"
+    runtime "org.jogamp.jogl:jogl-all:2.3.1:natives-macosx-universal"
+    runtime "org.jogamp.jogl:jogl-all:2.3.1:natives-solaris-amd64"
+    runtime "org.jogamp.jogl:jogl-all:2.3.1:natives-solaris-i586"
+    runtime "org.jogamp.jogl:jogl-all:2.3.1:natives-windows-amd64"
+    runtime "org.jogamp.jogl:jogl-all:2.3.1:natives-windows-i586"
+}
+
+testResultsDirName = "results/test"
+
+test {
+    jacoco {
+        append = false
+        destinationFile = file("$buildDir/results/jacoco/test.exec")
+    }
+}
+
+cucumber {
+    formats = [ "pretty", "html:build/reports/cucumber", "json:build/results/cucumber/cucumber.json" ]
+    glueDirs = [ "src/cucmber/java" ]
+    featureDirs = [ "src/cucumber/resources" ]
+    jvmOptions {
+        def jacocoAgent = zipTree(configurations.jacocoAgent.singleFile).filter { it.name == "jacocoagent.jar" }.singleFile
+        jvmArgs = ["-javaagent:$jacocoAgent=destfile=$buildDir/results/jacoco/cucumber.exec,append=false"]
+    }
+}
+
+jacocoTestReport {
+    executionData = files("$buildDir/results/jacoco/test.exec", "$buildDir/results/jacoco/cucumber.exec")
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination "${buildDir}/reports/jacoco"
+    }
+}
