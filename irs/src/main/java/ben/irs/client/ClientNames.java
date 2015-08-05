@@ -10,5 +10,4 @@ public class ClientNames {
     public static final String ALL = "ALL";
     public static final String DATA_STORE = "DATA_STORE";
     public static final String MASTER = "MASTER";
-    public static final String PLAYER_1 = "PLAYER_1";
 }

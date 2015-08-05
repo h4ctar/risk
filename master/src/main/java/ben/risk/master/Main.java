@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import ben.irs.client.ClientNames;
 import ben.mom.client.MomClient;
-import ben.risk.master.clock.Clock;
 import org.apache.commons.cli.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -39,8 +38,7 @@ public final class Main {
             return;
         }
 
-        MomClient momClient = new MomClient(ClientNames.MASTER, address, port);
+        MomClient momClient = new MomClient(ClientNames.MASTER, address, port, null);
         new Master(momClient);
-        new Clock(momClient);
     }
 }

@@ -1,10 +1,9 @@
 package ben.risk.player;
 
-import ben.risk.player.time.Clock;
-import ben.irs.client.ClientNames;
-import ben.mom.client.MomClient;
-import org.apache.commons.cli.*;
-import org.jetbrains.annotations.NotNull;
+import ben.risk.player.login.LoginPane;
+import ben.ui.action.ActionManager;
+import ben.ui.widget.BorderPane;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 
@@ -16,9 +15,8 @@ public final class Main {
     /**
      * The player window.
      */
+    @Nullable
     private PlayerWindow playerWindow;
-
-    private MomClient momClient;
 
     /**
      * Main method.
@@ -32,39 +30,19 @@ public final class Main {
     /**
      * Start the application.
      * @param args program args
-     * @throws IOException the message broker failed to connect to the simulator
      */
-    public void start(String[] args) throws IOException {
-        Options options = new Options();
-        options.addOption("a", true, "Address");
-        options.addOption("p", true, "Port");
-        String address;
-        int port;
-        try {
-            CommandLineParser parser = new BasicParser();
-            CommandLine cmd = parser.parse(options, args);
-            address = cmd.getOptionValue("a");
-            port = Integer.parseInt(cmd.getOptionValue("p"));
-        }
-        catch (@NotNull NumberFormatException|ParseException e) {
-            System.err.println("Wrong arguments");
-            HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp("player", options);
-            return;
-        }
-
-        momClient = new MomClient(ClientNames.PLAYER_1, address, port);
+    public void start(String[] args) {
         playerWindow = new PlayerWindow();
-
-        // Start the Clock.
-        new Clock(momClient);
+        playerWindow.init();
     }
 
     /**
      * Stop the application.
      */
     public void stop() {
-        playerWindow.stop();
-        momClient.stop();
+        if (playerWindow != null) {
+            playerWindow.stop();
+            playerWindow = null;
+        }
     }
 }

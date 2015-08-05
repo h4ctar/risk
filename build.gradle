@@ -1,3 +1,7 @@
+apply plugin: "java"
+apply plugin: "idea"
+apply plugin: "com.github.samueltbrown.cucumber"
+
 subprojects {
     apply plugin: "java"
     apply plugin: "idea"
@@ -31,3 +35,17 @@ buildscript {
     }
 }
 
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    testCompile "info.cukes:cucumber-java:1.1.7"
+}
+
+cucumber {
+    formats = [ "pretty", "html:build/reports/cucumber", "json:build/results/cucumber/cucumber.json" ]
+    glueDirs = [ "src/cucmber/java" ]
+    featureDirs = [ "src/cucumber/resources" ]
+}

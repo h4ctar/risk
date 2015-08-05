@@ -1,4 +1,6 @@
 apply plugin:"application"
+apply plugin: "com.github.samueltbrown.cucumber"
+apply plugin: "jacoco"
 
 mainClassName = "ben.simulator.Main"
 
@@ -8,3 +10,30 @@ dependencies {
     compile "ben.mom:mom:SNAPSHOT"
 }
 
+testResultsDirName = "results/test"
+
+test {
+    jacoco {
+        append = false
+        destinationFile = file("$buildDir/results/jacoco/test.exec")
+    }
+}
+
+cucumber {
+    formats = [ "pretty", "html:build/reports/cucumber", "json:build/results/cucumber/cucumber.json" ]
+    glueDirs = [ "src/cucmber/java" ]
+    featureDirs = [ "src/cucumber/resources" ]
+    jvmOptions {
+        def jacocoAgent = zipTree(configurations.jacocoAgent.singleFile).filter { it.name == "jacocoagent.jar" }.singleFile
+        jvmArgs = ["-javaagent:$jacocoAgent=destfile=$buildDir/results/jacoco/cucumber.exec,append=false"]
+    }
+}
+
+jacocoTestReport {
+    executionData = files("$buildDir/results/jacoco/test.exec", "$buildDir/results/jacoco/cucumber.exec")
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination "$buildDir/reports/jacoco"
+    }
+}

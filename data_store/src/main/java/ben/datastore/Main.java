@@ -37,7 +37,7 @@ public final class Main {
             return;
         }
 
-        momClient = new MomClient(ClientNames.DATA_STORE, address, port);
+        momClient = new MomClient(ClientNames.DATA_STORE, address, port, null);
         dataStore = new DataStore(momClient);
         dataStore.addRecordType(MockRecord.class, MockUpdated.class, MockDeleted.class);
     }
