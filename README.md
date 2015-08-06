@@ -6,14 +6,12 @@ The reason behind this project is to build a distributed system that meets a hig
 Safety:
  * Requirements and derived requirements
    * System requirements
-   * High-level software requirements
-   * Low-level software requirements
+   * Software requirements
  * Design
    * System design
-   * High-level software design
+   * Software design
  * Full traceability
-   * System requirements -> High-level software requirements
-   * High-level software requirements -> Low-level software requirements
+   * System requirements -> Software requirements
 
 Process:
  * SCM strategy
