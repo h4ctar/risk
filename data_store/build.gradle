@@ -6,8 +6,8 @@ mainClassName = "ben.datastore.Main"
 
 dependencies {
     compile project(":irs")
-
     compile "ben.mom:mom:SNAPSHOT"
+    testCompile project(path: ':irs', configuration: 'tests')
 }
 
 testResultsDirName = "results/test"
@@ -34,7 +34,7 @@ jacocoTestReport {
     reports {
         xml.enabled false
         csv.enabled false
-        html.destination "${buildDir}/reports/jacoco"
+        html.destination "$buildDir/reports/jacoco"
     }
 }
 

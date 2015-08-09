@@ -2,7 +2,7 @@ package ben.risk.master;
 
 import java.io.IOException;
 
-import ben.irs.client.ClientNames;
+import ben.risk.irs.client.ClientNames;
 import ben.mom.client.MomClient;
 import org.apache.commons.cli.*;
 import org.jetbrains.annotations.NotNull;

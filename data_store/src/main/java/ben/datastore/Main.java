@@ -1,9 +1,9 @@
 package ben.datastore;
 
-import ben.irs.client.ClientNames;
-import ben.irs.mock.MockDeleted;
-import ben.irs.mock.MockRecord;
-import ben.irs.mock.MockUpdated;
+import ben.risk.irs.client.ClientNames;
+import ben.risk.irs.game.GameDeleted;
+import ben.risk.irs.game.GameUpdated;
+import ben.risk.irs.game.GameRecord;
 import ben.mom.client.MomClient;
 import org.apache.commons.cli.*;
 import org.jetbrains.annotations.NotNull;
@@ -39,7 +39,7 @@ public final class Main {
 
         momClient = new MomClient(ClientNames.DATA_STORE, address, port, null);
         dataStore = new DataStore(momClient);
-        dataStore.addRecordType(MockRecord.class, MockUpdated.class, MockDeleted.class);
+        dataStore.addRecordType(GameRecord.class, GameUpdated.class, GameDeleted.class);
     }
 
     public void stop() {

@@ -1,4 +1,4 @@
-apply plugin:"application"
+apply plugin: "application"
 apply plugin: "com.github.samueltbrown.cucumber"
 apply plugin: "jacoco"
 
@@ -6,8 +6,8 @@ mainClassName = "ben.simulator.Main"
 
 dependencies {
     compile project(":irs")
-
     compile "ben.mom:mom:SNAPSHOT"
+    testCompile project(path: ':irs', configuration: 'tests')
 }
 
 testResultsDirName = "results/test"

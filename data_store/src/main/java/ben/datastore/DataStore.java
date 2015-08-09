@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import ben.irs.client.ClientNames;
-import ben.irs.record.*;
+import ben.risk.irs.client.ClientNames;
 import ben.mom.client.IMomClient;
 import ben.mom.client.IMessageProcessor;
+import ben.risk.irs.record.*;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;

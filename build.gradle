@@ -24,6 +24,19 @@ subprojects {
         testCompile "org.mockito:mockito-core:1.9.+"
         testCompile "info.cukes:cucumber-java:1.1.7"
     }
+
+    task testJar(type: Jar, dependsOn: testClasses) {
+        baseName = "test-${project.archivesBaseName}"
+        from sourceSets.test.output
+    }
+
+    configurations {
+        tests
+    }
+
+    artifacts {
+        tests testJar
+    }
 }
 
 buildscript {

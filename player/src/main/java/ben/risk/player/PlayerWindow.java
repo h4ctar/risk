@@ -1,8 +1,10 @@
 package ben.risk.player;
 
-import ben.irs.JoinLobby;
-import ben.irs.client.ClientNames;
-import ben.irs.record.CurrentGameState;
+import ben.risk.irs.JoinLobby;
+import ben.risk.irs.client.ClientNames;
+import ben.risk.irs.game.GameRecord;
+import ben.risk.irs.game.GameUpdated;
+import ben.risk.irs.record.RequestAllRecords;
 import ben.mom.client.IEventQueue;
 import ben.mom.client.IMessageProcessor;
 import ben.mom.client.MomClient;
@@ -48,7 +50,8 @@ public final class PlayerWindow extends MainWindow {
         assert momClient == null : "MOM client should not be created yet";
         momClient = new MomClient(playerName, address, port, new EventQueue());
 
-        momClient.subscribe(CurrentGameState.class, new CurrentGameStateProcessor());
+        momClient.subscribe(GameUpdated.class, new GameUpdatedProcessor());
+        momClient.sendMessage(ClientNames.DATA_STORE, new RequestAllRecords(GameRecord.class));
         momClient.sendMessage(ClientNames.MASTER, new JoinLobby(playerName));
     }
 
@@ -75,19 +78,21 @@ public final class PlayerWindow extends MainWindow {
         }
     }
 
-    private class CurrentGameStateProcessor implements IMessageProcessor<CurrentGameState> {
+    private class GameUpdatedProcessor implements IMessageProcessor<GameUpdated> {
 
         @Override
-        public void processMessage(@NotNull CurrentGameState currentGameState) {
+        public void processMessage(@NotNull GameUpdated gameUpdated) {
+            GameRecord gameRecord = gameUpdated.getRecord();
+            System.err.println("process message");
             IWidget rootWidget = null;
-            switch (currentGameState.getGameState()) {
+            switch (gameRecord.getGameStateName()) {
             case LOBBY:
                 assert lobbyPane != null : "Init must have been called first";
                 rootWidget = lobbyPane.getPane();
                 break;
 
             case TRADING:
-            case PLACING_ARMIES:
+            case PLACING:
             case ATTACKING:
             case FORTIFYING:
                 break;
