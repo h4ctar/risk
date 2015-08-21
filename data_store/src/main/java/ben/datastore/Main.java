@@ -7,12 +7,12 @@ import ben.risk.irs.game.GameRecord;
 import ben.mom.client.MomClient;
 import org.apache.commons.cli.*;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public final class Main {
 
+    @Nullable
     private MomClient momClient;
-
-    private DataStore dataStore;
 
     public static void main(String[] args) throws Exception {
         new Main().start(args);
@@ -38,12 +38,14 @@ public final class Main {
         }
 
         momClient = new MomClient(ClientNames.DATA_STORE, address, port, null);
-        dataStore = new DataStore(momClient);
+        DataStore dataStore = new DataStore(momClient);
         dataStore.addRecordType(GameRecord.class, GameUpdated.class, GameDeleted.class);
     }
 
     public void stop() {
-        momClient.stop();
-//        dataStore.stop();
+        if (momClient != null) {
+            momClient.stop();
+            momClient = null;
+        }
     }
 }
