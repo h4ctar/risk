@@ -5,6 +5,9 @@ import ben.risk.irs.game.GameDeleted;
 import ben.risk.irs.game.GameUpdated;
 import ben.risk.irs.game.GameRecord;
 import ben.mom.client.MomClient;
+import ben.risk.irs.player.PlayerDeleted;
+import ben.risk.irs.player.PlayerRecord;
+import ben.risk.irs.player.PlayerUpdated;
 import org.apache.commons.cli.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -39,7 +42,9 @@ public final class Main {
 
         momClient = new MomClient(ClientNames.DATA_STORE, address, port, null);
         DataStore dataStore = new DataStore(momClient);
+
         dataStore.addRecordType(GameRecord.class, GameUpdated.class, GameDeleted.class);
+        dataStore.addRecordType(PlayerRecord.class, PlayerUpdated.class, PlayerDeleted.class);
     }
 
     public void stop() {

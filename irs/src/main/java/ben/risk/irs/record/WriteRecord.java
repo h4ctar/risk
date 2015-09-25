@@ -12,7 +12,7 @@ import java.io.Serializable;
  * </p>
  */
 @Immutable
-public class WriteRecord implements Serializable {
+public final class WriteRecord implements Serializable {
 
     /**
      * Serial Version UID.

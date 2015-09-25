@@ -8,23 +8,13 @@ import java.io.Serializable;
 public class GameDeleted implements Serializable {
 
     /**
-     * The ID of the record that was deleted.
+     * The Serial Version UID.
      */
-    private final int id;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Constructor.
      * @param id the ID of the record that was deleted
      */
-    public GameDeleted(int id) {
-        this.id = id;
-    }
-
-    /**
-     * Get the ID of the record that was deleted.
-     * @return the ID of the record that was deleted
-     */
-    public int getId() {
-        return id;
-    }
+    public GameDeleted(int id) { }
 }

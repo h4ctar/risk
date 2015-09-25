@@ -1,8 +1,5 @@
 package ben.risk.player;
 
-import ben.risk.player.login.LoginPane;
-import ben.ui.action.ActionManager;
-import ben.ui.widget.BorderPane;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;

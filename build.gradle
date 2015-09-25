@@ -25,6 +25,12 @@ subprojects {
         testCompile "info.cukes:cucumber-java:1.1.7"
     }
 
+    compileJava {
+        options.compilerArgs << '-parameters'
+//        options.fork = true
+//        options.forkOptions.executable = 'javac'
+    }
+
     task testJar(type: Jar, dependsOn: testClasses) {
         baseName = "test-${project.archivesBaseName}"
         from sourceSets.test.output

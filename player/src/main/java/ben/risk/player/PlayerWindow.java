@@ -8,9 +8,9 @@ import ben.risk.irs.record.RequestAllRecords;
 import ben.mom.client.IEventQueue;
 import ben.mom.client.IMessageProcessor;
 import ben.mom.client.MomClient;
+import ben.risk.player.game.GamePane;
 import ben.risk.player.lobby.LobbyPane;
 import ben.risk.player.login.LoginPane;
-import ben.ui.widget.IWidget;
 import ben.ui.window.MainWindow;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -23,10 +23,16 @@ import java.io.IOException;
  *      The main window for the player client.
  * </p>
  */
-public final class PlayerWindow extends MainWindow {
+public final class PlayerWindow extends MainWindow implements IPlayerWindow {
 
     @Nullable
-    private LobbyPane lobbyPane = new LobbyPane();
+    private LoginPane loginPane;
+
+    @Nullable
+    private LobbyPane lobbyPane;
+
+    @Nullable
+    private GamePane gamePane;
 
     /**
      * The MOM Client.
@@ -34,19 +40,47 @@ public final class PlayerWindow extends MainWindow {
     @Nullable
     private MomClient momClient;
 
-    public void init() {
-        getActionManager().addActionFactory(JoinLobbyAction.class, new JoinLobbyAction(this));
-
-        setRootWidget(new LoginPane(getActionManager()).getPane());
-    }
+    @Nullable
+    private String playerName;
 
     /**
-     * Join a game lobby.
-     * @param address the address of the MOM Server
-     * @param port the port of the MOM Server
-     * @param playerName the name of the player
+     * Initialise the window.
      */
+    public void init() {
+        setRootWidget(getLoginPane().getPane());
+    }
+
+    @NotNull
+    private LoginPane getLoginPane() {
+        if (loginPane == null) {
+            loginPane = new LoginPane(this);
+        }
+        return loginPane;
+    }
+
+    @NotNull
+    private LobbyPane getLobbyPane() {
+        assert momClient != null : "MOM Client should be initialised before the lobby is joined";
+        assert playerName != null : "Player name should be set before the lobby is joined";
+
+        if (lobbyPane == null) {
+            lobbyPane = new LobbyPane(playerName, momClient);
+        }
+        return lobbyPane;
+    }
+
+    @NotNull
+    private GamePane getGamePane() {
+        if (gamePane == null) {
+            gamePane = new GamePane();
+        }
+        return gamePane;
+    }
+
+    @Override
     public void joinLobby(@NotNull String address, int port, @NotNull String playerName) throws IOException {
+        this.playerName = playerName;
+
         assert momClient == null : "MOM client should not be created yet";
         momClient = new MomClient(playerName, address, port, new EventQueue());
 
@@ -83,21 +117,19 @@ public final class PlayerWindow extends MainWindow {
         @Override
         public void processMessage(@NotNull GameUpdated gameUpdated) {
             GameRecord gameRecord = gameUpdated.getRecord();
-            System.err.println("process message");
-            IWidget rootWidget = null;
-            switch (gameRecord.getGameStateName()) {
+
+            switch (gameRecord.getGameState()) {
             case LOBBY:
-                assert lobbyPane != null : "Init must have been called first";
-                rootWidget = lobbyPane.getPane();
+                setRootWidget(getLobbyPane().getPane());
                 break;
 
             case TRADING:
             case PLACING:
             case ATTACKING:
             case FORTIFYING:
+                setRootWidget(getGamePane().getPane());
                 break;
             }
-            setRootWidget(rootWidget);
         }
     }
 }

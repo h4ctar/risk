@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Geo.
  */
 @Immutable
-public class Geo implements Serializable {
+public final class Geo implements Serializable {
 
     /**
      * The Serial Version UID.

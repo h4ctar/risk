@@ -1,5 +1,6 @@
-package ben.risk.player;
+package ben.risk.player.login;
 
+import ben.risk.player.IPlayerWindow;
 import ben.ui.action.AbstractAction;
 import ben.ui.rule.AbstractRule;
 import org.apache.log4j.LogManager;
@@ -17,10 +18,11 @@ public class JoinLobbyAction extends AbstractAction {
     /**
      * The Logger.
      */
-    private static final Logger LOGGER = LogManager.getLogger(JoinLobbyAction.class.getSimpleName());
+    @NotNull
+    private static final Logger LOGGER = LogManager.getLogger(JoinLobbyAction.class);
 
     @NotNull
-    private final PlayerWindow playerWindow;
+    private final IPlayerWindow playerWindow;
 
     @NotNull
     private final LocalRule localRule;
@@ -34,7 +36,7 @@ public class JoinLobbyAction extends AbstractAction {
     @Nullable
     private String playerName;
 
-    public JoinLobbyAction(@NotNull PlayerWindow playerWindow) {
+    public JoinLobbyAction(@NotNull IPlayerWindow playerWindow) {
         this.playerWindow = playerWindow;
         localRule = new LocalRule();
         addRule(localRule);

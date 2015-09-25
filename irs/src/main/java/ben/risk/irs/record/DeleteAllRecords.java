@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Delete All Records.
  */
-public class DeleteAllRecords implements Serializable {
+public final class DeleteAllRecords implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

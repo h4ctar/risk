@@ -12,6 +12,7 @@ import cucumber.api.java.en.When;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -42,21 +43,15 @@ public class DataStoreSteps {
         momServer.stop();
     }
 
-    @Given("^a ([A-Z_]+) message has been received$")
-    public void a_message_has_been_received(String messageName) throws Throwable {
-        Serializable message = irsTypeHelper.createIrsType(messageName, new HashMap<>());
+    @Given("^a ([a-zA-Z_\\.]+) message (?:has been|is) received(?: with:|)$")
+    public void a_message_is_received(String messageName, Map<String, String> value) throws Throwable {
+        Serializable message = irsTypeHelper.createIrsType(messageName, value);
         momServer.sendMessage(ClientNames.DATA_STORE, message);
     }
 
-    @When("^a ([A-Z_]+) message is received$")
-    public void a_message_is_received(String messageName) throws Throwable {
-        Serializable message = irsTypeHelper.createIrsType(messageName, new HashMap<>());
-        momServer.sendMessage(ClientNames.DATA_STORE, message);
-    }
-
-    @Then("^a ([A-Z_]+) message is sent to ([A-Z_]+)$")
+    @Then("^a ([a-zA-Z_\\.]+) message is sent to ([A-Z_]+)$")
     public void a_message_is_sent(String messageName, String destination) throws Throwable {
-        Class<?> messageType = irsTypeHelper.getMessageType(messageName);
+        Class<?> messageType = Class.forName(messageName);
 
         Message message = null;
         long startTime = System.currentTimeMillis();

@@ -7,6 +7,11 @@ import java.io.Serializable;
  */
 public class GameUpdated implements Serializable {
 
+    /**
+     * The Serial Version UID.
+     */
+    private static final long serialVersionUID = 1L;
+
     private final GameRecord record;
 
     public GameUpdated(GameRecord record) {

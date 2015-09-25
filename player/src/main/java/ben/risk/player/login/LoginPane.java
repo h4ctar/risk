@@ -1,22 +1,23 @@
 package ben.risk.player.login;
 
-import ben.risk.player.JoinLobbyAction;
-import ben.ui.action.ActionManager;
+import ben.risk.player.IPlayerWindow;
 import ben.ui.converter.IntegerConverter;
 import ben.ui.converter.StringConverter;
 import ben.ui.widget.*;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Login Pane.
  */
-public class LoginPane {
+public final class LoginPane {
 
-    private CenterPane pane = new CenterPane("LOGIN_PANE");
+    @NotNull
+    private CenterPane loginPane = new CenterPane("LOGIN_PANE");
 
-    public LoginPane(ActionManager actionManager) {
+    public LoginPane(@NotNull IPlayerWindow playerWindow) {
         VerticalPane centerPane = new VerticalPane(null);
 
-        JoinLobbyAction joinLobbyAction = actionManager.getAction(JoinLobbyAction.class);
+        JoinLobbyAction joinLobbyAction = new JoinLobbyAction(playerWindow);
 
         HorizontalPane serverIpPane = new HorizontalPane(null);
         serverIpPane.add(new Label(null, "  Server IP:"));
@@ -46,10 +47,10 @@ public class LoginPane {
         joinButton.setAction(joinLobbyAction);
         centerPane.add(joinButton);
 
-        pane.setCenter(centerPane);
+        loginPane.setCenter(centerPane);
     }
 
     public IWidget getPane() {
-        return pane;
+        return loginPane;
     }
 }

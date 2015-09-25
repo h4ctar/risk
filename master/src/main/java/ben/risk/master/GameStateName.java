@@ -1,22 +1,24 @@
 package ben.risk.master;
 
+import ben.risk.irs.type.GameState;
+
 /**
  * Game State Name.
  */
 public enum GameStateName {
-    LOBBY(ben.risk.irs.type.GameStateName.LOBBY),
-    TRADING(ben.risk.irs.type.GameStateName.TRADING),
-    PLACING(ben.risk.irs.type.GameStateName.PLACING),
-    ATTACKING(ben.risk.irs.type.GameStateName.ATTACKING),
-    FORTIFYING(ben.risk.irs.type.GameStateName.FORTIFYING);
+    LOBBY(GameState.LOBBY),
+    TRADING(GameState.TRADING),
+    PLACING(GameState.PLACING),
+    ATTACKING(GameState.ATTACKING),
+    FORTIFYING(GameState.FORTIFYING);
 
-    private final ben.risk.irs.type.GameStateName irsGameStateName;
+    private final GameState irsGameState;
 
-    GameStateName(ben.risk.irs.type.GameStateName irsGameStateName) {
-        this.irsGameStateName = irsGameStateName;
+    GameStateName(GameState irsGameState) {
+        this.irsGameState = irsGameState;
     }
 
-    public ben.risk.irs.type.GameStateName getIrsGameStateName() {
-        return irsGameStateName;
+    public GameState getIrsGameState() {
+        return irsGameState;
     }
 }

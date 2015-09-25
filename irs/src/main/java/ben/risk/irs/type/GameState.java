@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Game State Name.
  */
-public enum GameStateName implements Serializable {
+public enum GameState implements Serializable {
     LOBBY,
     TRADING,
     PLACING,

@@ -5,7 +5,7 @@ import net.jcip.annotations.Immutable;
 import java.io.Serializable;
 
 @Immutable
-public class DeleteRecord implements Serializable {
+public final class DeleteRecord implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

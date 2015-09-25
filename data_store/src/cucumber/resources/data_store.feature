@@ -1,36 +1,59 @@
 Feature: Data Store
 
   Scenario Outline: Write a new record
-    When a <write_record> message is received
+    When a ben.risk.irs.record.WriteRecord message is received with:
+      | record.type | <record_type> |
+      | record.id   | 0             |
+
     Then a <record_updated> message is sent to ALL
 
       Examples:
-        | write_record      | record_updated      |
-        | WRITE_GAME_RECORD | GAME_RECORD_UPDATED |
+        | record_type                       | record_updated                     |
+        |  ben.risk.irs.game.GameRecord     |  ben.risk.irs.game.GameUpdated     |
+        |  ben.risk.irs.player.PlayerRecord |  ben.risk.irs.player.PlayerUpdated |
 
   Scenario Outline: Delete an existing record
-    Given a <write_record> message has been received
-    When a <delete_record> message is received
+    Given a ben.risk.irs.record.WriteRecord message has been received with:
+      | record.type | <record_type> |
+      | record.id   | 0             |
+
+    When a ben.risk.irs.record.DeleteRecord message is received with:
+      | type | <record_type> |
+      | id   | 0             |
+
     Then a <record_deleted> message is sent to ALL
 
     Examples:
-      | write_record      | delete_record      | record_deleted      |
-      | WRITE_GAME_RECORD | DELETE_GAME_RECORD | GAME_RECORD_DELETED |
+      | record_type                       | record_deleted                     |
+      |  ben.risk.irs.game.GameRecord     |  ben.risk.irs.game.GameDeleted     |
+      |  ben.risk.irs.player.PlayerRecord |  ben.risk.irs.player.PlayerDeleted |
 
   Scenario Outline: Request all records
-    Given a <write_record> message has been received
-    When a <request_all_records> message is received
+    Given a ben.risk.irs.record.WriteRecord message has been received with:
+      | record.type | <record_type> |
+      | record.id   | 0             |
+
+    When a ben.risk.irs.record.RequestAllRecords message is received with:
+      | type | <record_type> |
+
     Then a <record_updated> message is sent to ALL
 
     Examples:
-      | write_record      | request_all_records      | record_updated      |
-      | WRITE_GAME_RECORD | REQUEST_ALL_GAME_RECORDS | GAME_RECORD_UPDATED |
+      | record_type                       | record_updated                     |
+      |  ben.risk.irs.game.GameRecord     |  ben.risk.irs.game.GameUpdated     |
+      |  ben.risk.irs.player.PlayerRecord |  ben.risk.irs.player.PlayerUpdated |
 
   Scenario Outline: Delete all records
-    Given a <write_record> message has been received
-    When a <delete_all_records> message is received
+    Given a ben.risk.irs.record.WriteRecord message has been received with:
+      | record.type | <record_type> |
+      | record.id   | 0             |
+
+    When a ben.risk.irs.record.DeleteAllRecords message is received with:
+      | type | <record_type> |
+
     Then a <record_deleted> message is sent to ALL
 
     Examples:
-      | write_record      | delete_all_records      | record_deleted      |
-      | WRITE_GAME_RECORD | DELETE_ALL_GAME_RECORDS | GAME_RECORD_DELETED |
+      | record_type                       | record_deleted                     |
+      |  ben.risk.irs.game.GameRecord     |  ben.risk.irs.game.GameDeleted     |
+      |  ben.risk.irs.player.PlayerRecord |  ben.risk.irs.player.PlayerDeleted |

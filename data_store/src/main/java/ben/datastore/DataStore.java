@@ -67,7 +67,9 @@ public class DataStore {
      * @param updateRecordType the type of update record message
      * @param deleteRecordType the type of delete record message
      */
-    public void addRecordType(@NotNull Class<? extends IRecord> recordType, @NotNull Class<? extends Serializable> updateRecordType, @NotNull Class<? extends Serializable> deleteRecordType) throws Exception {
+    public void addRecordType(@NotNull Class<? extends IRecord> recordType,
+                              @NotNull Class<? extends Serializable> updateRecordType,
+                              @NotNull Class<? extends Serializable> deleteRecordType) throws Exception {
         assert !updateRecordTypes.containsKey(recordType) : "Record type already added";
         assert !deleteRecordTypes.containsKey(recordType) : "Record type already added";
         updateRecordType.getDeclaredConstructor(recordType);

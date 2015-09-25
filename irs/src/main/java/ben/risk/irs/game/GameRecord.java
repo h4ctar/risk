@@ -1,7 +1,7 @@
 package ben.risk.irs.game;
 
 import ben.risk.irs.record.IRecord;
-import ben.risk.irs.type.GameStateName;
+import ben.risk.irs.type.GameState;
 
 import java.io.Serializable;
 
@@ -10,18 +10,26 @@ import java.io.Serializable;
  */
 public class GameRecord implements IRecord, Serializable {
 
-    private final GameStateName gameStateName;
+    /**
+     * The Serial Version UID.
+     */
+    private static final long serialVersionUID = 1L;
 
-    public GameRecord(GameStateName gameStateName) {
-        this.gameStateName = gameStateName;
+    private final GameState gameState;
+
+    private final int id;
+
+    public GameRecord(int id, GameState gameState) {
+        this.id = id;
+        this.gameState = gameState;
     }
 
-    public GameStateName getGameStateName() {
-        return gameStateName;
+    public GameState getGameState() {
+        return gameState;
     }
 
     @Override
     public int getRecordId() {
-        return 0;
+        return id;
     }
 }

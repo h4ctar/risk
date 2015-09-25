@@ -3,14 +3,12 @@ package ben.risk.master;
 /**
  * Attacking Game State.
  */
-public final class AttackingGameState implements IGameState {
+public final class AttackingGameState {
 
-    @Override
     public void start() {
 
     }
 
-    @Override
     public void stop() {
 
     }

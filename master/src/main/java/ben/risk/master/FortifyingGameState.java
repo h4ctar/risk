@@ -3,14 +3,12 @@ package ben.risk.master;
 /**
  * Fortifying Game State.
  */
-public final class FortifyingGameState implements IGameState {
+public final class FortifyingGameState {
 
-    @Override
     public void start() {
 
     }
 
-    @Override
     public void stop() {
 
     }
