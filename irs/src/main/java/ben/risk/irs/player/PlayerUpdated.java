@@ -27,4 +27,20 @@ public final class PlayerUpdated implements Serializable {
     public PlayerRecord getRecord() {
         return record;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PlayerUpdated that = (PlayerUpdated) o;
+
+        return record.equals(that.record);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return record.hashCode();
+    }
 }

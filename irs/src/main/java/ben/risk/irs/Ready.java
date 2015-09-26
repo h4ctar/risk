@@ -27,4 +27,19 @@ public final class Ready implements Serializable {
     public String getPlayerName() {
         return playerName;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Ready ready = (Ready) o;
+
+        return playerName.equals(ready.playerName);
+    }
+
+    @Override
+    public int hashCode() {
+        return playerName.hashCode();
+    }
 }

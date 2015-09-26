@@ -25,4 +25,23 @@ public final class DeleteRecord implements Serializable {
     public final int getRecordId() {
         return id;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DeleteRecord that = (DeleteRecord) o;
+
+        if (id != that.id) return false;
+        return !(type != null ? !type.equals(that.type) : that.type != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = type != null ? type.hashCode() : 0;
+        result = 31 * result + id;
+        return result;
+    }
 }

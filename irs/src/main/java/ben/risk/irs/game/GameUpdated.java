@@ -21,4 +21,20 @@ public class GameUpdated implements Serializable {
     public GameRecord getRecord() {
         return record;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GameUpdated that = (GameUpdated) o;
+
+        return !(record != null ? !record.equals(that.record) : that.record != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return record != null ? record.hashCode() : 0;
+    }
 }

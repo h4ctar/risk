@@ -41,4 +41,26 @@ public final class WriteRecord implements Serializable {
     public final IRecord getRecord() {
         return record;
     }
+
+    @Override
+    public String toString() {
+        return "WriteRecord{" +
+                "record=" + record +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        WriteRecord that = (WriteRecord) o;
+
+        return record.equals(that.record);
+    }
+
+    @Override
+    public int hashCode() {
+        return record.hashCode();
+    }
 }

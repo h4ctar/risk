@@ -60,7 +60,6 @@ public final class Geo implements Serializable {
 
         if (Double.compare(geo.latitude, latitude) != 0) return false;
         return Double.compare(geo.longitude, longitude) == 0;
-
     }
 
     @Override
