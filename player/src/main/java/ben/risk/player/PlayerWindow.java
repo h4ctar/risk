@@ -44,6 +44,13 @@ public final class PlayerWindow extends MainWindow implements IPlayerWindow {
     private String playerName;
 
     /**
+     * Constructor.
+     */
+    public PlayerWindow() {
+        super(800, 600);
+    }
+
+    /**
      * Initialise the window.
      */
     public void init() {
