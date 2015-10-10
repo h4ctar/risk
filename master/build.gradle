@@ -29,7 +29,8 @@ cucumber {
 }
 
 jacocoTestReport {
-    executionData = files("$buildDir/results/jacoco/test.exec", "$buildDir/results/jacoco/cucumber.exec")
+    // executionData = files("$buildDir/results/jacoco/test.exec", "$buildDir/results/jacoco/cucumber.exec")
+    executionData = files("$buildDir/results/jacoco/cucumber.exec")
     reports {
         xml.enabled false
         csv.enabled false
