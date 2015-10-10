@@ -15,14 +15,14 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class DataStoreSteps {
-
-    private static final long TIMEOUT = 10000;
 
     private MomServer momServer;
 
@@ -33,6 +33,7 @@ public class DataStoreSteps {
         momServer = new MomServer(1234, true);
         main = new Main();
         main.start(new String[]{"-p", "1234", "-a", "127.0.0.1"});
+
         // TODO: Wait till the client has been added.
         Thread.sleep(1000);
     }
@@ -77,12 +78,8 @@ public class DataStoreSteps {
 
     @Then("^a record updated message is broadcasted$")
     public void a_record_updated_message_is_broadcasted() throws Throwable {
-        Message message = null;
-        long startTime = System.currentTimeMillis();
-        while (message == null && System.currentTimeMillis() - startTime < TIMEOUT) {
-            message = momServer.getLastReceivedMessage(PlayerUpdated.class);
-            Thread.sleep(10);
-        }
+        Message message = getLastReceivedMessage(PlayerUpdated.class);
+
         assertThat(message, notNullValue()); assert message != null; // To fix bug with not null annotation checking.
         assertThat(message.getDestination(), equalTo(ClientNames.ALL));
         assertThat(message.getBody().getClass(), equalTo(PlayerUpdated.class));
@@ -90,14 +87,25 @@ public class DataStoreSteps {
 
     @Then("^a record deleted message is broadcasted$")
     public void a_record_deleted_message_is_broadcasted() throws Throwable {
-        Message message = null;
-        long startTime = System.currentTimeMillis();
-        while (message == null && System.currentTimeMillis() - startTime < TIMEOUT) {
-            message = momServer.getLastReceivedMessage(PlayerDeleted.class);
-            Thread.sleep(10);
-        }
+        Message message = getLastReceivedMessage(PlayerDeleted.class);
+
         assertThat(message, notNullValue()); assert message != null; // To fix bug with not null annotation checking.
         assertThat(message.getDestination(), equalTo(ClientNames.ALL));
         assertThat(message.getBody().getClass(), equalTo(PlayerDeleted.class));
+    }
+
+    @Nullable
+    private Message getLastReceivedMessage(@NotNull Class<?> type) throws InterruptedException {
+        Thread.sleep(1000);
+
+        Message message = null;
+
+        long startTime = System.currentTimeMillis();
+        while (message == null && System.currentTimeMillis() - startTime < 1000) {
+            message = momServer.getLastReceivedMessage(type);
+            Thread.sleep(10);
+        }
+
+        return message;
     }
 }

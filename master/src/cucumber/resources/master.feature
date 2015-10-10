@@ -2,54 +2,18 @@ Feature: Master
 
   Scenario: Start Lobby
     When Master starts
-    Then a ben.risk.irs.record.WriteRecord message is sent to DATA_STORE with:
-      | record.type      | ben.risk.irs.game.GameRecord |
-      | record.id        | 0                            |
-      | record.gameState | LOBBY                        |
+    Then the game state is set to LOBBY
 
   Scenario: Player joins Lobby
-    When a ben.risk.irs.JoinLobby message is received with:
-      | playerName | Ben |
-
-    Then a ben.risk.irs.record.WriteRecord message is sent to DATA_STORE with:
-      | record.type       | ben.risk.irs.player.PlayerRecord |
-      | record.id         | 0                                |
-      | record.playerName | Ben                              |
-      | record.ready      | false                            |
+    When a join lobby message is received
+    Then the player record is added
 
   Scenario: One Player is ready
-    Given a ben.risk.irs.JoinLobby message has been received with:
-      | playerName | Ben |
-
-    When a ben.risk.irs.Ready message is received with:
-      | playerName | Ben |
-
-    Then a ben.risk.irs.record.WriteRecord message is sent to DATA_STORE with:
-      | record.type       | ben.risk.irs.player.PlayerRecord |
-      | record.id         | 0                                |
-      | record.playerName | Ben                              |
-      | record.ready      | true                             |
+    Given a join lobby message has been received
+    When a player ready message is received
+    Then the player record is set to ready
 
   Scenario: All Players are ready
-    Given a ben.risk.irs.JoinLobby message has been received with:
-      | playerName | Ben |
-
-    And a ben.risk.irs.JoinLobby message has been received with:
-      | playerName | Simon |
-
-    And a ben.risk.irs.JoinLobby message has been received with:
-      | playerName | Wu |
-
-    When a ben.risk.irs.Ready message is received with:
-      | playerName | Ben |
-
-    And a ben.risk.irs.Ready message is received with:
-      | playerName | Simon |
-
-    And a ben.risk.irs.Ready message is received with:
-      | playerName | Wu |
-
-    Then a ben.risk.irs.record.WriteRecord message is sent to DATA_STORE with:
-      | record.type      | ben.risk.irs.game.GameRecord |
-      | record.id        | 0                            |
-      | record.gameState | TRADING                      |
+    Given 3 players have joined the lobby
+    When 3 player ready messages have been received
+    Then the game state is set to TRADING
