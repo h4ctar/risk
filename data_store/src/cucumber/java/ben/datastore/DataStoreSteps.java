@@ -1,18 +1,20 @@
 package ben.datastore;
 
-import ben.risk.irs.IrsTypeHelper;
-import ben.risk.irs.client.ClientNames;
 import ben.mom.message.Message;
 import ben.mom.server.MomServer;
+import ben.risk.irs.client.ClientNames;
+import ben.risk.irs.player.PlayerDeleted;
+import ben.risk.irs.player.PlayerRecord;
+import ben.risk.irs.player.PlayerUpdated;
+import ben.risk.irs.record.DeleteAllRecords;
+import ben.risk.irs.record.DeleteRecord;
+import ben.risk.irs.record.RequestAllRecords;
+import ben.risk.irs.record.WriteRecord;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -21,8 +23,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class DataStoreSteps {
 
     private static final long TIMEOUT = 10000;
-
-    private final IrsTypeHelper irsTypeHelper = new IrsTypeHelper();
 
     private MomServer momServer;
 
@@ -43,24 +43,61 @@ public class DataStoreSteps {
         momServer.stop();
     }
 
-    @Given("^a ([a-zA-Z_\\.]+) message (?:has been|is) received(?: with:|)$")
-    public void a_message_is_received(String messageName, Map<String, String> value) throws Throwable {
-        Serializable message = irsTypeHelper.createIrsType(messageName, value);
-        momServer.sendMessage(ClientNames.DATA_STORE, message);
+    @Given("^there is an existing record$")
+    public void there_is_an_existing_record() {
+        PlayerRecord mockRecord = new PlayerRecord(0, "Ben", true);
+        WriteRecord writeRecord = new WriteRecord(mockRecord);
+        momServer.sendMessage(ClientNames.DATA_STORE, writeRecord);
     }
 
-    @Then("^a ([a-zA-Z_\\.]+) message is sent to ([A-Z_]+)$")
-    public void a_message_is_sent(String messageName, String destination) throws Throwable {
-        Class<?> messageType = Class.forName(messageName);
+    @When("^a write record message is received$")
+    public void a_write_record_message_is_received() {
+        PlayerRecord mockRecord = new PlayerRecord(0, "Ben", true);
+        WriteRecord writeRecord = new WriteRecord(mockRecord);
+        momServer.sendMessage(ClientNames.DATA_STORE, writeRecord);
+    }
 
+    @When("^a delete record message is received$")
+    public void a_delete_record_message_is_received() {
+        DeleteRecord deleteRecord = new DeleteRecord(PlayerRecord.class, 0);
+        momServer.sendMessage(ClientNames.DATA_STORE, deleteRecord);
+    }
+
+    @When("^a request all records message is received$")
+    public void a_request_all_records_message_is_received() {
+        RequestAllRecords requestAllRecords = new RequestAllRecords(PlayerRecord.class);
+        momServer.sendMessage(ClientNames.DATA_STORE, requestAllRecords);
+    }
+
+    @When("^a delete all records message is received$")
+    public void a_delete_all_records_message_is_received() {
+        DeleteAllRecords deleteAllRecords = new DeleteAllRecords(PlayerRecord.class);
+        momServer.sendMessage(ClientNames.DATA_STORE, deleteAllRecords);
+    }
+
+    @Then("^a record updated message is broadcasted$")
+    public void a_record_updated_message_is_broadcasted() throws Throwable {
         Message message = null;
         long startTime = System.currentTimeMillis();
         while (message == null && System.currentTimeMillis() - startTime < TIMEOUT) {
-            message = momServer.getLastReceivedMessage(messageType);
+            message = momServer.getLastReceivedMessage(PlayerUpdated.class);
             Thread.sleep(10);
         }
-
         assertThat(message, notNullValue()); assert message != null; // To fix bug with not null annotation checking.
-        assertThat(message.getDestination(), equalTo(destination));
+        assertThat(message.getDestination(), equalTo(ClientNames.ALL));
+        assertThat(message.getBody().getClass(), equalTo(PlayerUpdated.class));
+    }
+
+    @Then("^a record deleted message is broadcasted$")
+    public void a_record_deleted_message_is_broadcasted() throws Throwable {
+        Message message = null;
+        long startTime = System.currentTimeMillis();
+        while (message == null && System.currentTimeMillis() - startTime < TIMEOUT) {
+            message = momServer.getLastReceivedMessage(PlayerDeleted.class);
+            Thread.sleep(10);
+        }
+        assertThat(message, notNullValue()); assert message != null; // To fix bug with not null annotation checking.
+        assertThat(message.getDestination(), equalTo(ClientNames.ALL));
+        assertThat(message.getBody().getClass(), equalTo(PlayerDeleted.class));
     }
 }

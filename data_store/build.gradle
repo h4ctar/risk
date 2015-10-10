@@ -7,7 +7,6 @@ mainClassName = "ben.datastore.Main"
 dependencies {
     compile project(":irs")
     compile "ben.mom:mom:SNAPSHOT"
-    testCompile project(path: ':irs', configuration: 'tests')
 }
 
 testResultsDirName = "results/test"
