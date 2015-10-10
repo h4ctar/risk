@@ -1,3 +1,5 @@
+![Build Status](https://travis-ci.org/bensmith87/risk.svg?branch=master)
+
 # Risk
 Clone of the Risk strategy board game.
 
