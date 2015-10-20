@@ -3,7 +3,7 @@ package ben.risk.player.game.map.view;
 import java.util.List;
 
 import com.jogamp.opengl.GL;
-import com.jogamp.opengl.GL3;
+import com.jogamp.opengl.GL2;
 
 import ben.ui.graphic.AbstractGraphic;
 import ben.ui.renderer.LineRenderer;
@@ -44,16 +44,16 @@ public class MapGraphic extends AbstractGraphic {
     }
 
     @Override
-    protected final void initDraw(@NotNull GL3 gl, @NotNull GlResourceManager glResourceManager) {
+    protected final void initDraw(@NotNull GL2 gl, @NotNull GlResourceManager glResourceManager) {
         float[] positions = createPositions();
         lineRenderer = new LineRenderer(gl, glResourceManager, positions, 3, GL.GL_LINE_LOOP, COLOR);
     }
 
     @Override
-    protected final void updateDraw(@NotNull GL3 gl) { }
+    protected final void updateDraw(@NotNull GL2 gl) { }
 
     @Override
-    protected final void doDraw(@NotNull GL3 gl, @NotNull PmvMatrix pmvMatrix) {
+    protected final void doDraw(@NotNull GL2 gl, @NotNull PmvMatrix pmvMatrix) {
         lineRenderer.draw(gl, pmvMatrix);
     }
 
@@ -74,7 +74,7 @@ public class MapGraphic extends AbstractGraphic {
     }
 
     @Override
-    public void remove(@NotNull GL3 gl) {
+    public void remove(@NotNull GL2 gl) {
         super.remove(gl);
         lineRenderer.remove(gl);
     }
