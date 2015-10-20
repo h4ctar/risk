@@ -3,7 +3,7 @@ apply plugin:"application"
 mainClassName = "ben.risk.momserver.Main"
 
 dependencies {
-    compile "ben.mom:mom:SNAPSHOT"
+    compile "com.github.bensmith87:mom:0.1-SNAPSHOT"
 
     runtime project(":irs")
 }

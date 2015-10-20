@@ -6,7 +6,7 @@ mainClassName = "ben.simulator.Main"
 
 dependencies {
     compile project(":irs")
-    compile "ben.mom:mom:SNAPSHOT"
+    compile "com.github.bensmith87:mom:0.1-SNAPSHOT"
 }
 
 testResultsDirName = "results/test"
