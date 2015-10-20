@@ -1,4 +1,4 @@
-package ben.datastore;
+package ben.risk.datastore;
 
 import ben.risk.irs.client.ClientNames;
 import ben.risk.irs.game.GameDeleted;
@@ -16,6 +16,8 @@ public final class Main {
 
     @Nullable
     private MomClient momClient;
+
+    private DataStore dataStore;
 
     public static void main(String[] args) throws Exception {
         new Main().start(args);
@@ -41,7 +43,7 @@ public final class Main {
         }
 
         momClient = new MomClient(ClientNames.DATA_STORE, address, port, null);
-        DataStore dataStore = new DataStore(momClient);
+        dataStore = new DataStore(momClient);
 
         dataStore.addRecordType(GameRecord.class, GameUpdated.class, GameDeleted.class);
         dataStore.addRecordType(PlayerRecord.class, PlayerUpdated.class, PlayerDeleted.class);
@@ -52,5 +54,9 @@ public final class Main {
             momClient.stop();
             momClient = null;
         }
+    }
+
+    public DataStore getDataStore() {
+        return dataStore;
     }
 }

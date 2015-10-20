@@ -1,16 +1,21 @@
 Feature: Lobby
 
-  Scenario: Not enough players
-    Given the system is waiting for players
-    And less than 3 players have joined the game
-    When all players are ready to play
-    Then the system is waiting for players
-
-  Scenario Outline: Start the game with more than 2 players
-    Given the system is waiting for players
+  Scenario Outline: Less than 3 players
+    Given the system has started
     And <players> players have joined the game
     When all players are ready to play
-    And the system moves into the 'TRADING' state
+    And the system moves into the LOBBY state
+
+    Examples:
+      | players |
+      |  1      |
+      |  2      |
+
+  Scenario Outline: Start the game with more than 2 players
+    Given the system has started
+    And <players> players have joined the game
+    When all players are ready to play
+    And the system moves into the TRADING state
 
     Examples:
       | players |

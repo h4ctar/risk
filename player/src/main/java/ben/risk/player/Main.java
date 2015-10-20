@@ -42,4 +42,8 @@ public final class Main {
             playerWindow = null;
         }
     }
+
+    public PlayerWindow getPlayerWindow() {
+        return playerWindow;
+    }
 }

@@ -16,14 +16,14 @@ public class LobbyPane {
 
     private static final int NUMBER_OF_PLAYERS = 6;
     
-    private CenterPane lobbyPane = new CenterPane("LOBBY_PANE");
+    private CenterPane lobbyPane = new CenterPane(null);
 
     private Label[] playerNameCells = new Label[NUMBER_OF_PLAYERS];
 
     private Label[] playerReadyCells = new Label[NUMBER_OF_PLAYERS];
 
     public LobbyPane(@NotNull String playerName, @NotNull MomClient momClient) {
-        VerticalPane centerPane = new VerticalPane(null);
+        VerticalPane centerPane = new VerticalPane("LOBBY_PANE");
         
         for (int i = 0; i < NUMBER_OF_PLAYERS; i++) {
             HorizontalPane playerRow = new HorizontalPane(null);
@@ -42,7 +42,7 @@ public class LobbyPane {
             centerPane.add(playerRow);
         }
         
-        Button readyButton = new Button("READY", "Ready");
+        Button readyButton = new Button("READY_BUTTON", "Ready");
         readyButton.setAction(new ReadyAction(momClient, playerName));
         centerPane.add(readyButton);
 

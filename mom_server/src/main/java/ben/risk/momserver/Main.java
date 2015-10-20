@@ -1,8 +1,9 @@
-package ben.momserver;
+package ben.risk.momserver;
 
 import ben.mom.server.MomServer;
 import org.apache.commons.cli.*;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 
@@ -11,16 +12,19 @@ import java.io.IOException;
  */
 public final class Main {
 
-    /**
-     * Private Constructor.
-     */
-    private Main() { }
+    @Nullable
+    private MomServer momServer;
 
     /**
      * Main.
-     * @param args the program arguments
+     * @param args the application arguments
+     * @throws IOException the Message Broker Client could not connect
      */
     public static void main(String[] args) throws IOException {
+        new Main().start(args);
+    }
+
+    public void start(String[] args) throws IOException {
         Options options = new Options();
         options.addOption("p", true, "Port");
         int port;
@@ -36,6 +40,13 @@ public final class Main {
             return;
         }
 
-        new MomServer(port, false);
+        momServer = new MomServer(port, false);
+    }
+
+    public void stop() {
+        if (momServer != null) {
+            momServer.stop();
+            momServer = null;
+        }
     }
 }

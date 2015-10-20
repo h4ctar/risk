@@ -1,4 +1,4 @@
-package ben.datastore;
+package ben.risk.datastore;
 
 import ben.mom.message.Message;
 import ben.mom.server.MomServer;

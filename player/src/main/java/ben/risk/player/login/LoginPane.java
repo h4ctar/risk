@@ -12,10 +12,10 @@ import org.jetbrains.annotations.NotNull;
 public final class LoginPane {
 
     @NotNull
-    private CenterPane loginPane = new CenterPane("LOGIN_PANE");
+    private CenterPane loginPane = new CenterPane(null);
 
     public LoginPane(@NotNull IPlayerWindow playerWindow) {
-        VerticalPane centerPane = new VerticalPane(null);
+        VerticalPane centerPane = new VerticalPane("LOGIN_PANE");
 
         JoinLobbyAction joinLobbyAction = new JoinLobbyAction(playerWindow);
 
