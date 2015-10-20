@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import ben.math.Geo;
+import ben.ui.math.Geo;
 import ben.risk.player.mvc.AbstractModel;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;

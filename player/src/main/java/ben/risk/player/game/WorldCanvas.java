@@ -2,14 +2,14 @@ package ben.risk.player.game;
 
 import ben.ui.input.mouse.MouseButton;
 import ben.ui.input.mouse.MouseListenerAdapter;
-import ben.math.Matrix;
-import ben.math.PmvMatrix;
-import ben.math.Rect;
-import ben.math.Vec2i;
+import ben.ui.math.Matrix;
+import ben.ui.math.PmvMatrix;
+import ben.ui.math.Rect;
+import ben.ui.math.Vec2i;
 import ben.ui.widget.Canvas;
-import ben.math.Vec3f;
-import ben.math.Vec4f;
-import ben.math.Geo;
+import ben.ui.math.Vec3f;
+import ben.ui.math.Vec4f;
+import ben.ui.math.Geo;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

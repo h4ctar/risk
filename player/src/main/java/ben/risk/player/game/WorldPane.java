@@ -1,6 +1,6 @@
 package ben.risk.player.game;
 
-import ben.math.PmvMatrix;
+import ben.ui.math.PmvMatrix;
 import ben.ui.resource.GlResourceManager;
 import ben.ui.widget.AbstractPane;
 import ben.ui.widget.IWidget;

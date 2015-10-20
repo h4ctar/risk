@@ -7,9 +7,9 @@ import com.jogamp.opengl.GL3;
 
 import ben.ui.graphic.AbstractGraphic;
 import ben.ui.renderer.LineRenderer;
-import ben.math.Vec3f;
-import ben.math.Geo;
-import ben.math.PmvMatrix;
+import ben.ui.math.Vec3f;
+import ben.ui.math.Geo;
+import ben.ui.math.PmvMatrix;
 import ben.ui.resource.GlResourceManager;
 import ben.ui.resource.color.Color;
 import org.jetbrains.annotations.NotNull;
