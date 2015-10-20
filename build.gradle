@@ -50,7 +50,7 @@ dependencies {
     testCompile project(":master")
     testCompile project(":player")
 
-    testCompile "ben.mom:mom:SNAPSHOT"
+    testCompile "com.github.bensmith87:mom:0.1-SNAPSHOT"
 
     testCompile "net.jcip:jcip-annotations:1.0"
     testCompile "com.intellij:annotations:12.0"
@@ -66,3 +66,5 @@ cucumber {
     glueDirs = [ "src/cucmber/java" ]
     featureDirs = [ "src/cucumber/resources" ]
 }
+
+check.dependsOn "cucumber"

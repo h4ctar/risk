@@ -1,6 +1,6 @@
 package ben.risk;
 
-import ben.math.Vec2i;
+import ben.ui.math.Vec2i;
 import ben.risk.player.PlayerWindow;
 import ben.ui.widget.IPane;
 import ben.ui.widget.IWidget;
