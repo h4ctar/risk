@@ -3,10 +3,12 @@ language: java
 jdk:
   - oraclejdk8
 
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq matchbox-window-manager
+
 before_script:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - sleep 3 # give xvfb some time to start
-  - matchbox-window-manager
-  - sleep 3 # give matchbox some time to start
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start && sleep 3
+  - matchbox-window-manager && sleep 3
 
