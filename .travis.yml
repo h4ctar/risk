@@ -9,6 +9,6 @@ before_install:
 
 before_script:
   - Xvfb :5 -screen 0 1280x1024x24 &
-  - twm -display :5 -v &
+#  - twm -display :5 -v &
   - export DISPLAY=:5.0
 
