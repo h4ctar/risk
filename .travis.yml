@@ -8,7 +8,7 @@ before_install:
   - sudo apt-get install -qq twm
 
 before_script:
-  - Xvfb :5 -screen 0 1280x1024x32 &
+  - Xvfb :5 -screen 0 1280x1024x24 &
   - twm -display :5 -v &
   - export DISPLAY=:5.0
 
