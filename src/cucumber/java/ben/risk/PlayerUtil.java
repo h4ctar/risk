@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -21,6 +22,8 @@ public final class PlayerUtil {
     private PlayerUtil() { }
 
     public static void clickWidget(@NotNull PlayerWindow playerWindow, @NotNull String[] widgetPath) throws NotFoundException, AWTException {
+        System.out.println("clickWidget " + Arrays.asList(widgetPath).toString());
+
         playerWindow.requestFocus();
         Robot robot = new Robot();
         robot.setAutoDelay(100);
@@ -30,9 +33,13 @@ public final class PlayerUtil {
         robot.mouseMove(pos.getX(), pos.getY());
         robot.mousePress(InputEvent.BUTTON1_MASK);
         robot.mouseRelease(InputEvent.BUTTON1_MASK);
+
+        System.out.println("  clickWidget done");
     }
 
     public static void typeIntoField(@NotNull PlayerWindow playerWindow, @NotNull String[] widgetPath, @NotNull String text) throws NotFoundException, AWTException {
+        System.out.println("typeIntoField " + Arrays.asList(widgetPath).toString() + " '" + text + "'");
+
         playerWindow.requestFocus();
         Robot robot = new Robot();
         robot.setAutoDelay(100);
@@ -61,6 +68,8 @@ public final class PlayerUtil {
                 robot.keyRelease(KeyEvent.VK_SHIFT);
             }
         }
+
+        System.out.println("  typeIntoField done");
     }
 
     @NotNull
