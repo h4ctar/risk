@@ -70,6 +70,8 @@ public class LobbySteps {
 
     @And("^([0-9]+) players have joined the game$")
     public void players_have_joined_the_game(int numberOfPlayers) throws Throwable {
+        Thread.sleep(1000);
+
         for (int i = 0; i < numberOfPlayers; i++) {
             ben.risk.player.Main player = new ben.risk.player.Main();
             player.start(new String[]{"-p", "1234", "-a", "127.0.0.1"});
@@ -86,6 +88,8 @@ public class LobbySteps {
 
     @When("^all players are ready to play$")
     public void all_players_are_ready_to_play() throws Throwable {
+        Thread.sleep(1000);
+        
         for (ben.risk.player.Main player : players) {
             PlayerUtil.clickWidget(player.getPlayerWindow(), new String[] { "LOBBY_PANE", "READY_BUTTON" });
         }
