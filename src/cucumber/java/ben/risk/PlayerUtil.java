@@ -4,12 +4,12 @@ import ben.ui.math.Vec2i;
 import ben.risk.player.PlayerWindow;
 import ben.ui.widget.IPane;
 import ben.ui.widget.IWidget;
+import com.jogamp.newt.event.MouseEvent;
+import com.jogamp.newt.event.KeyEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,14 +25,10 @@ public final class PlayerUtil {
         System.out.println("clickWidget " + Arrays.asList(widgetPath).toString());
 
         playerWindow.requestFocus();
-        Robot robot = new Robot();
-        robot.setAutoDelay(100);
 
         Vec2i pos = getWidgetPos(playerWindow, widgetPath);
 
-        robot.mouseMove(pos.getX(), pos.getY());
-        robot.mousePress(InputEvent.BUTTON1_MASK);
-        robot.mouseRelease(InputEvent.BUTTON1_MASK);
+        clickMouse(playerWindow, MouseEvent.BUTTON1, pos);
 
         System.out.println("  clickWidget done");
     }
@@ -41,43 +37,57 @@ public final class PlayerUtil {
         System.out.println("typeIntoField " + Arrays.asList(widgetPath).toString() + " '" + text + "'");
 
         playerWindow.requestFocus();
-        Robot robot = new Robot();
-        robot.setAutoDelay(100);
 
         Vec2i pos = getWidgetPos(playerWindow, widgetPath);
 
         // Select the field.
-        robot.mouseMove(pos.getX(), pos.getY());
-        robot.mousePress(InputEvent.BUTTON1_MASK);
-        robot.mouseRelease(InputEvent.BUTTON1_MASK);
+        clickMouse(playerWindow, MouseEvent.BUTTON1, pos);
 
         for (int i = 0; i < 10; i++ ) {
-            robot.keyPress(KeyEvent.VK_DELETE);
-            robot.keyRelease(KeyEvent.VK_DELETE);
+            typeKey(playerWindow, KeyEvent.VK_DELETE);
         }
 
         for (char c : text.toCharArray()) {
             if (Character.isUpperCase(c)) {
-                robot.keyPress(KeyEvent.VK_SHIFT);
+                pressKey(playerWindow, KeyEvent.VK_SHIFT);
             }
 
-            robot.keyPress(Character.toUpperCase(c));
-            robot.keyRelease(Character.toUpperCase(c));
+            typeKey(playerWindow, KeyEvent.utf16ToVKey(Character.toUpperCase(c)));
 
             if (Character.isUpperCase(c)) {
-                robot.keyRelease(KeyEvent.VK_SHIFT);
+                releaseKey(playerWindow, KeyEvent.VK_SHIFT);
             }
         }
 
         System.out.println("  typeIntoField done");
     }
 
+    private static void typeKey(@NotNull PlayerWindow playerWindow, short keyCode) {
+        pressKey(playerWindow, keyCode);
+        releaseKey(playerWindow, keyCode);
+    }
+
+    private static void pressKey(@NotNull PlayerWindow playerWindow, short keyCode) {
+        playerWindow.getKeyListener().keyPressed(KeyEvent.create(KeyEvent.EVENT_KEY_PRESSED, playerWindow, (long) 0, 0, keyCode, keyCode, (char) 0));
+    }
+
+    private static void releaseKey(@NotNull PlayerWindow playerWindow, short keyCode) {
+        playerWindow.getKeyListener().keyReleased(KeyEvent.create(KeyEvent.EVENT_KEY_RELEASED, playerWindow, (long) 0, 0, keyCode, keyCode, (char) 0));
+    }
+
+    private static void clickMouse(@NotNull PlayerWindow playerWindow, short button, @NotNull Vec2i pos) {
+        playerWindow.getMouseListener().mouseClicked(new MouseEvent((short) 0, playerWindow, 0, 0, pos.getX(), pos.getY(), (short) 0, button, null, 0));
+    }
+
     @NotNull
-    public static Vec2i getWidgetPos(@NotNull PlayerWindow playerWindow, @NotNull String[] widgetPath) throws NotFoundException {
+    private static Vec2i getWidgetPos(@NotNull PlayerWindow playerWindow, @NotNull String[] widgetPath) throws NotFoundException {
         IPane pane = (IPane) playerWindow.getRootWidget();
 
-        Vec2i pos = playerWindow.getPosition();
-        pos = pos.add(pane.getPosition());
+        if (pane == null) {
+            throw new NotFoundException("Root widget");
+        }
+
+        Vec2i pos = pane.getPosition();
 
         List<IWidget> widgets = findWidget(pane, widgetPath);
 
@@ -92,7 +102,7 @@ public final class PlayerUtil {
     }
 
     @NotNull
-    public static List<IWidget> findWidget(@NotNull IPane pane, @NotNull String[] widgetPath) throws NotFoundException {
+    private static List<IWidget> findWidget(@NotNull IPane pane, @NotNull String[] widgetPath) throws NotFoundException {
         List<IWidget> widgets = new ArrayList<>();
 
         for (int i = 0; i < widgetPath.length - 1; i++) {
@@ -122,7 +132,7 @@ public final class PlayerUtil {
     }
 
     @Nullable
-    public static List<IWidget> findWidget(@NotNull IPane pane, @NotNull String widgetName) throws NotFoundException {
+    private static List<IWidget> findWidget(@NotNull IPane pane, @NotNull String widgetName) throws NotFoundException {
         List<IWidget> widgets = null;
 
         for (IWidget widget : pane.getWidgets()) {
