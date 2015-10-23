@@ -44,35 +44,35 @@ public final class PlayerUtil {
         clickMouse(playerWindow, MouseEvent.BUTTON1, pos);
 
         for (int i = 0; i < 10; i++ ) {
-            typeKey(playerWindow, KeyEvent.VK_DELETE);
+            typeKey(playerWindow, KeyEvent.VK_DELETE, (char) 0);
         }
 
         for (char c : text.toCharArray()) {
             if (Character.isUpperCase(c)) {
-                pressKey(playerWindow, KeyEvent.VK_SHIFT);
+                pressKey(playerWindow, KeyEvent.VK_SHIFT, (char) 0);
             }
 
-            typeKey(playerWindow, KeyEvent.utf16ToVKey(Character.toUpperCase(c)));
+            typeKey(playerWindow, KeyEvent.utf16ToVKey(Character.toUpperCase(c)), c);
 
             if (Character.isUpperCase(c)) {
-                releaseKey(playerWindow, KeyEvent.VK_SHIFT);
+                releaseKey(playerWindow, KeyEvent.VK_SHIFT, (char) 0);
             }
         }
 
         System.out.println("  typeIntoField done");
     }
 
-    private static void typeKey(@NotNull PlayerWindow playerWindow, short keyCode) {
-        pressKey(playerWindow, keyCode);
-        releaseKey(playerWindow, keyCode);
+    private static void typeKey(@NotNull PlayerWindow playerWindow, short keyCode, char keyChar) {
+        pressKey(playerWindow, keyCode, keyChar);
+        releaseKey(playerWindow, keyCode, keyChar);
     }
 
-    private static void pressKey(@NotNull PlayerWindow playerWindow, short keyCode) {
-        playerWindow.getKeyListener().keyPressed(KeyEvent.create(KeyEvent.EVENT_KEY_PRESSED, playerWindow, (long) 0, 0, keyCode, keyCode, (char) 0));
+    private static void pressKey(@NotNull PlayerWindow playerWindow, short keyCode, char keyChar) {
+        playerWindow.getKeyListener().keyPressed(KeyEvent.create(KeyEvent.EVENT_KEY_PRESSED, playerWindow, (long) 0, 0, keyCode, keyCode, keyChar));
     }
 
-    private static void releaseKey(@NotNull PlayerWindow playerWindow, short keyCode) {
-        playerWindow.getKeyListener().keyReleased(KeyEvent.create(KeyEvent.EVENT_KEY_RELEASED, playerWindow, (long) 0, 0, keyCode, keyCode, (char) 0));
+    private static void releaseKey(@NotNull PlayerWindow playerWindow, short keyCode, char keyChar) {
+        playerWindow.getKeyListener().keyReleased(KeyEvent.create(KeyEvent.EVENT_KEY_RELEASED, playerWindow, (long) 0, 0, keyCode, keyCode, keyChar));
     }
 
     private static void clickMouse(@NotNull PlayerWindow playerWindow, short button, @NotNull Vec2i pos) {
