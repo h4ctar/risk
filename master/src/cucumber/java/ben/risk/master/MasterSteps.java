@@ -124,12 +124,11 @@ public class MasterSteps {
 
         assertThat(message, notNullValue()); assert message != null; // To fix bug with not null annotation checking.
         assertThat(message.getDestination(), equalTo(ClientNames.DATA_STORE));
-        assertThat(message.getBody().getClass(), equalTo(WriteRecord.class));
 
         WriteRecord writeRecord = (WriteRecord) message.getBody();
         IRecord record = writeRecord.getRecord();
 
-        assertThat(record.getClass(), equalTo(recordType));
+        assertThat(record.getClass().getName(), equalTo(recordType.getName()));
 
         return (T) record;
     }

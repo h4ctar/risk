@@ -82,7 +82,7 @@ public class DataStoreSteps {
 
         assertThat(message, notNullValue()); assert message != null; // To fix bug with not null annotation checking.
         assertThat(message.getDestination(), equalTo(ClientNames.ALL));
-        assertThat(message.getBody().getClass(), equalTo(PlayerUpdated.class));
+        assertThat(message.getBody().getClass().getName(), equalTo(PlayerUpdated.class.getName()));
     }
 
     @Then("^a record deleted message is broadcasted$")
@@ -91,7 +91,7 @@ public class DataStoreSteps {
 
         assertThat(message, notNullValue()); assert message != null; // To fix bug with not null annotation checking.
         assertThat(message.getDestination(), equalTo(ClientNames.ALL));
-        assertThat(message.getBody().getClass(), equalTo(PlayerDeleted.class));
+        assertThat(message.getBody().getClass().getName(), equalTo(PlayerDeleted.class.getName()));
     }
 
     @Nullable
