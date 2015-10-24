@@ -7,6 +7,9 @@ import java.io.Serializable;
 
 /**
  * Join Lobby.
+ * <p>
+ *     Message sent from a player to the game master when they want to join the lobby.
+ * </p>
  */
 @Immutable
 public final class JoinLobby implements Serializable {
@@ -16,13 +19,24 @@ public final class JoinLobby implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The player name.
+     */
     @NotNull
     private final String playerName;
 
+    /**
+     * Constructor.
+     * @param playerName the name of the player who wants to join the lobby
+     */
     public JoinLobby(@NotNull String playerName) {
         this.playerName = playerName;
     }
 
+    /**
+     * Get the name of the player who wants to join the lobby.
+     * @return the name of the player who wants to join the lobby
+     */
     @NotNull
     public String getPlayerName() {
         return playerName;

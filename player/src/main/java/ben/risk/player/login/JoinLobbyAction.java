@@ -12,8 +12,11 @@ import java.io.IOException;
 
 /**
  * Join Lobby Action.
+ * <p>
+ *     Action that will call the joinLobby method on the player window.
+ * </p>
  */
-public class JoinLobbyAction extends AbstractAction {
+public final class JoinLobbyAction extends AbstractAction {
 
     /**
      * The Logger.
@@ -21,21 +24,40 @@ public class JoinLobbyAction extends AbstractAction {
     @NotNull
     private static final Logger LOGGER = LogManager.getLogger(JoinLobbyAction.class);
 
+    /**
+     * The player window.
+     */
     @NotNull
     private final IPlayerWindow playerWindow;
 
+    /**
+     * The local rule.
+     */
     @NotNull
     private final LocalRule localRule;
 
+    /**
+     * The IP address of the game master.
+     */
     @Nullable
     private String address;
 
+    /**
+     * The port of the game master.
+     */
     @Nullable
     private Integer port;
 
+    /**
+     * The player name.
+     */
     @Nullable
     private String playerName;
 
+    /**
+     * Constructor.
+     * @param playerWindow the player window
+     */
     public JoinLobbyAction(@NotNull IPlayerWindow playerWindow) {
         this.playerWindow = playerWindow;
         localRule = new LocalRule();
@@ -61,23 +83,44 @@ public class JoinLobbyAction extends AbstractAction {
         }
     }
 
+    /**
+     * Set the IP address of the game master.
+     * @param address the IP address
+     */
     public void setAddress(@Nullable String address) {
         this.address = address;
         localRule.update();
     }
 
+    /**
+     * Set the port of the game master.
+     * @param port the port
+     */
     public void setPort(@Nullable Integer port) {
         this.port = port;
         localRule.update();
     }
 
+    /**
+     * Set the player name.
+     * @param playerName the player name
+     */
     public void setPlayerName(@Nullable String playerName) {
         this.playerName = playerName;
         localRule.update();
     }
 
+    /**
+     * Local Rule.
+     * <p>
+     *     Stops the action being executed if any of it's fields are null.
+     * </p>
+     */
     private class LocalRule extends AbstractRule {
 
+        /**
+         * Update the rule.
+         */
         public void update() {
             setValid(address != null && port != null && playerName != null);
         }

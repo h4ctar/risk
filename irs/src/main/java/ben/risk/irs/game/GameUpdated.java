@@ -4,20 +4,34 @@ import java.io.Serializable;
 
 /**
  * Game Updated.
+ * <p>
+ *     Message that is broadcasted by the data store when a game record is updated.
+ * </p>
  */
-public class GameUpdated implements Serializable {
+public final class GameUpdated implements Serializable {
 
     /**
      * The Serial Version UID.
      */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The game record.
+     */
     private final GameRecord record;
 
+    /**
+     * Constructor.
+     * @param record the game record
+     */
     public GameUpdated(GameRecord record) {
         this.record = record;
     }
 
+    /**
+     * Get the game record.
+     * @return the game record
+     */
     public GameRecord getRecord() {
         return record;
     }

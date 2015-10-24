@@ -16,13 +16,24 @@ public final class PlayerUpdated implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The player record.
+     */
     @NotNull
     private final PlayerRecord record;
 
+    /**
+     * Constructor.
+     * @param record the player record
+     */
     public PlayerUpdated(@NotNull PlayerRecord record) {
         this.record = record;
     }
 
+    /**
+     * Get the player record.
+     * @return the record
+     */
     @NotNull
     public PlayerRecord getRecord() {
         return record;
@@ -36,7 +47,6 @@ public final class PlayerUpdated implements Serializable {
         PlayerUpdated that = (PlayerUpdated) o;
 
         return record.equals(that.record);
-
     }
 
     @Override

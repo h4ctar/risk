@@ -11,12 +11,23 @@ import org.jetbrains.annotations.NotNull;
  */
 public final class ReadyAction extends AbstractAction {
 
+    /**
+     * The MOM client.
+     */
     @NotNull
     private final IMomClient momClient;
 
+    /**
+     * The player name.
+     */
     @NotNull
     private final String playerName;
 
+    /**
+     * Constructor.
+     * @param momClient the MOM client
+     * @param playerName the player name
+     */
     public ReadyAction(@NotNull IMomClient momClient, @NotNull String playerName) {
         this.momClient = momClient;
         this.playerName = playerName;

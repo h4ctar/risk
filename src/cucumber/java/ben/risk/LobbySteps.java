@@ -16,18 +16,34 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- * Master Steps.
+ * Lobby Steps.
  */
 public class LobbySteps {
 
+    /**
+     * The MOM server.
+     */
     private ben.risk.momserver.Main momServer;
 
+    /**
+     * The data store.
+     */
     private ben.risk.datastore.Main dataStore;
 
+    /**
+     * The master.
+     */
     private ben.risk.master.Main master;
 
+    /**
+     * The players.
+     */
     private Set<ben.risk.player.Main> players = new HashSet<>();
 
+    /**
+     * Before.
+     * @throws Exception something went wrong
+     */
     @Before
     public void before() throws Exception {
         momServer = new ben.risk.momserver.Main();
@@ -46,6 +62,9 @@ public class LobbySteps {
         Thread.sleep(1000);
     }
 
+    /**
+     * After.
+     */
     @After
     public void after() {
         for (ben.risk.player.Main player : players) {
@@ -56,10 +75,19 @@ public class LobbySteps {
         momServer.stop();
     }
 
+    /**
+     * The system has started.
+     * @throws Throwable something went wrong
+     */
     @Given("^the system has started$")
     public void the_system_has_started() throws Throwable {
     }
 
+    /**
+     * The system moves into the XXX state.
+     * @param state the state to assert
+     * @throws Throwable something went wrong
+     */
     @Then("^the system moves into the ([A-Z0-9_]+) state$")
     public void the_system_moves_into_the_state(String state) throws Throwable {
         Thread.sleep(1000);
@@ -68,6 +96,11 @@ public class LobbySteps {
         assertThat(gameRecord.getGameState(), equalTo(GameState.valueOf(state)));
     }
 
+    /**
+     * X players have joined the game.
+     * @param numberOfPlayers the number of players
+     * @throws Throwable something went wrong
+     */
     @And("^([0-9]+) players have joined the game$")
     public void players_have_joined_the_game(int numberOfPlayers) throws Throwable {
         Thread.sleep(1000);
@@ -86,6 +119,10 @@ public class LobbySteps {
         }
     }
 
+    /**
+     * All players are ready to play.
+     * @throws Throwable something went wrong
+     */
     @When("^all players are ready to play$")
     public void all_players_are_ready_to_play() throws Throwable {
         Thread.sleep(1000);

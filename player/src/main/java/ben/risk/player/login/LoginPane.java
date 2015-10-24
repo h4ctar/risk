@@ -11,9 +11,16 @@ import org.jetbrains.annotations.NotNull;
  */
 public final class LoginPane {
 
+    /**
+     * The widget for the pane.
+     */
     @NotNull
     private CenterPane loginPane = new CenterPane(null);
 
+    /**
+     * Constructor.
+     * @param playerWindow the player window
+     */
     public LoginPane(@NotNull IPlayerWindow playerWindow) {
         VerticalPane centerPane = new VerticalPane("LOGIN_PANE");
 
@@ -67,6 +74,10 @@ public final class LoginPane {
         loginPane.setCenter(centerPane);
     }
 
+    /**
+     * Get the pane.
+     * @return the pane
+     */
     public IWidget getPane() {
         return loginPane;
     }

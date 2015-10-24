@@ -4,17 +4,37 @@ import net.jcip.annotations.Immutable;
 
 import java.io.Serializable;
 
+/**
+ * Request All Records.
+ * <p>
+ *     Message that is sent to the data store to request all records.
+ * </p>
+ */
 @Immutable
 public class RequestAllRecords implements Serializable {
 
+    /**
+     * The serial version UID.
+     */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The type of record to get updates for.
+     */
     private final Class<?> type;
 
+    /**
+     * Constructor.
+     * @param type the type of record
+     */
     public RequestAllRecords(Class<?> type) {
         this.type = type;
     }
 
+    /**
+     * Get the type of record.
+     * @return the type of record
+     */
     public final Class<?> getType() {
         return type;
     }

@@ -16,11 +16,22 @@ public final class GameRecord implements IRecord, Serializable {
      */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The current game state.
+     */
     @NotNull
     private final GameState gameState;
 
+    /**
+     * The ID of the game.
+     */
     private final int id;
 
+    /**
+     * Constructor.
+     * @param id the ID of the game
+     * @param gameState the current game state
+     */
     public GameRecord(int id, @NotNull GameState gameState) {
         this.id = id;
         this.gameState = gameState;
@@ -34,6 +45,10 @@ public final class GameRecord implements IRecord, Serializable {
                 '}';
     }
 
+    /**
+     * Get the current game state.
+     * @return the current game state
+     */
     @NotNull
     public GameState getGameState() {
         return gameState;

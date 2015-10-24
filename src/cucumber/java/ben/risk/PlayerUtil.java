@@ -18,9 +18,18 @@ import java.util.List;
  */
 public final class PlayerUtil {
 
+    /**
+     * Private Constructor.
+     */
     private PlayerUtil() { }
 
-    public static void clickWidget(@NotNull PlayerWindow playerWindow, @NotNull String[] widgetPath) throws NotFoundException, AWTException {
+    /**
+     * Click on a widget.
+     * @param playerWindow the player window
+     * @param widgetPath the widget path
+     * @throws NotFoundException the widget could not be found
+     */
+    public static void clickWidget(@NotNull PlayerWindow playerWindow, @NotNull String[] widgetPath) throws NotFoundException {
         playerWindow.requestFocus();
 
         Vec2i pos = getWidgetPos(playerWindow, widgetPath);
@@ -28,7 +37,14 @@ public final class PlayerUtil {
         clickMouse(playerWindow, MouseEvent.BUTTON1, pos);
     }
 
-    public static void typeIntoField(@NotNull PlayerWindow playerWindow, @NotNull String[] widgetPath, @NotNull String text) throws NotFoundException, AWTException {
+    /**
+     * Type text into a field
+     * @param playerWindow the player window
+     * @param widgetPath the widget path
+     * @param text the text to type into the field
+     * @throws NotFoundException the widget could not be found
+     */
+    public static void typeIntoField(@NotNull PlayerWindow playerWindow, @NotNull String[] widgetPath, @NotNull String text) throws NotFoundException {
         playerWindow.requestFocus();
 
         Vec2i pos = getWidgetPos(playerWindow, widgetPath);
@@ -53,23 +69,55 @@ public final class PlayerUtil {
         }
     }
 
+    /**
+     * Type a key.
+     * @param playerWindow the player window
+     * @param keyCode the key code
+     * @param keyChar the key char
+     */
     private static void typeKey(@NotNull PlayerWindow playerWindow, short keyCode, char keyChar) {
         pressKey(playerWindow, keyCode, keyChar);
         releaseKey(playerWindow, keyCode, keyChar);
     }
 
+    /**
+     * Press a key.
+     * @param playerWindow the player window
+     * @param keyCode the key code
+     * @param keyChar the key char
+     */
     private static void pressKey(@NotNull PlayerWindow playerWindow, short keyCode, char keyChar) {
         playerWindow.getKeyListener().keyPressed(KeyEvent.create(KeyEvent.EVENT_KEY_PRESSED, playerWindow, (long) 0, 0, keyCode, keyCode, keyChar));
     }
 
+    /**
+     * Release a key.
+     * @param playerWindow the player window
+     * @param keyCode the key code
+     * @param keyChar the key char
+     */
     private static void releaseKey(@NotNull PlayerWindow playerWindow, short keyCode, char keyChar) {
         playerWindow.getKeyListener().keyReleased(KeyEvent.create(KeyEvent.EVENT_KEY_RELEASED, playerWindow, (long) 0, 0, keyCode, keyCode, keyChar));
     }
 
+    /**
+     * Click the mouse.
+     * @param playerWindow the player window
+     * @param button the button
+     * @param pos the position to click
+     */
     private static void clickMouse(@NotNull PlayerWindow playerWindow, short button, @NotNull Vec2i pos) {
+        playerWindow.getMouseListener().mouseMoved(new MouseEvent((short) 0, playerWindow, 0, 0, pos.getX(), pos.getY(), (short) 0, button, null, 0));
         playerWindow.getMouseListener().mouseClicked(new MouseEvent((short) 0, playerWindow, 0, 0, pos.getX(), pos.getY(), (short) 0, button, null, 0));
     }
 
+    /**
+     * Get the position of a widget.
+     * @param playerWindow the player window
+     * @param widgetPath the widget path
+     * @return the widget position
+     * @throws NotFoundException the widget could not be found
+     */
     @NotNull
     private static Vec2i getWidgetPos(@NotNull PlayerWindow playerWindow, @NotNull String[] widgetPath) throws NotFoundException {
         IPane pane = (IPane) playerWindow.getRootWidget();
@@ -92,6 +140,13 @@ public final class PlayerUtil {
         return pos;
     }
 
+    /**
+     * Find a widget.
+     * @param pane the pane to find the widget in
+     * @param widgetPath the widget path
+     * @return the widget
+     * @throws NotFoundException the widget could not be found
+     */
     @NotNull
     private static List<IWidget> findWidget(@NotNull IPane pane, @NotNull String[] widgetPath) throws NotFoundException {
         List<IWidget> widgets = new ArrayList<>();
@@ -122,8 +177,13 @@ public final class PlayerUtil {
         return widgets;
     }
 
-    @Nullable
-    private static List<IWidget> findWidget(@NotNull IPane pane, @NotNull String widgetName) throws NotFoundException {
+    /**
+     * Find a widget.
+     * @param pane the pane to find the widget in
+     * @param widgetName the name of the widget to find
+     * @return all the widgets from the pane to the found widget, null if the widget could not be found
+     */
+    private static List<IWidget> findWidget(@NotNull IPane pane, @NotNull String widgetName) {
         List<IWidget> widgets = null;
 
         for (IWidget widget : pane.getWidgets()) {
@@ -144,8 +204,15 @@ public final class PlayerUtil {
         return widgets;
     }
 
+    /**
+     * Not Found Exception.
+     */
     public static class NotFoundException extends Exception {
 
+        /**
+         * Constructor.
+         * @param widgetName the name of the widget that could not be found
+         */
         public NotFoundException(String widgetName) {
             super("Could not find " + widgetName);
         }

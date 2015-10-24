@@ -43,6 +43,10 @@ public final class Main {
         }
     }
 
+    /**
+     * Get the player window.
+     * @return the player window
+     */
     public PlayerWindow getPlayerWindow() {
         return playerWindow;
     }

@@ -6,6 +6,9 @@ import java.io.Serializable;
 
 /**
  * Player Deleted.
+ * <p>
+ *     Message broadcasted from the data store when a player record is deleted.
+ * </p>
  */
 @Immutable
 public final class PlayerDeleted implements Serializable {
@@ -28,6 +31,10 @@ public final class PlayerDeleted implements Serializable {
         this.id = id;
     }
 
+    /**
+     * Get the record ID.
+     * @return the record ID
+     */
     public int getRecordId() {
         return id;
     }
@@ -40,7 +47,6 @@ public final class PlayerDeleted implements Serializable {
         PlayerDeleted that = (PlayerDeleted) o;
 
         return id == that.id;
-
     }
 
     @Override

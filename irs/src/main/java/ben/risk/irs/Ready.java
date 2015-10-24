@@ -7,6 +7,9 @@ import java.io.Serializable;
 
 /**
  * Ready.
+ * <p>
+ *     Message sent from players to the game master when they are in the lobby and ready to play.
+ * </p>
  */
 @Immutable
 public final class Ready implements Serializable {
@@ -16,13 +19,24 @@ public final class Ready implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The player name.
+     */
     @NotNull
     private final String playerName;
 
+    /**
+     * Constructor.
+     * @param playerName the name of the player that is ready
+     */
     public Ready(@NotNull String playerName) {
         this.playerName = playerName;
     }
 
+    /**
+     * Get the player name.
+     * @return the player name
+     */
     @NotNull
     public String getPlayerName() {
         return playerName;

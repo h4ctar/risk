@@ -4,18 +4,35 @@ import java.io.Serializable;
 
 /**
  * Delete All Records.
+ * <p>
+ *     Message to send to the data store to delete all records of a type.
+ * </p>
  */
 public final class DeleteAllRecords implements Serializable {
 
+    /**
+     * The serial version UID.
+     */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The type of record to delete.
+     */
     private final Class<?> type;
 
+    /**
+     * Constructor.
+     * @param type the type of record to delete.
+     */
     public DeleteAllRecords(Class<?> type) {
         this.type = type;
     }
 
-    public final Class<?> getType() {
+    /**
+     * Get the type of record to delete.
+     * @return the type of record to delete
+     */
+    public Class<?> getType() {
         return type;
     }
 

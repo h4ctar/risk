@@ -4,14 +4,20 @@ import java.io.Serializable;
 
 /**
  * Game Deleted.
+ * <p>
+ *     Message that is broadcasted by the data store when a game record is deleted.
+ * </p>
  */
-public class GameDeleted implements Serializable {
+public final class GameDeleted implements Serializable {
 
     /**
      * The Serial Version UID.
      */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The ID of the game that is deleted.
+     */
     private final int id;
 
     /**
@@ -22,6 +28,10 @@ public class GameDeleted implements Serializable {
         this.id = id;
     }
 
+    /**
+     * Get the ID of the game that is deleted.
+     * @return the ID of the game that is deleted
+     */
     public int getRecordId() {
         return id;
     }

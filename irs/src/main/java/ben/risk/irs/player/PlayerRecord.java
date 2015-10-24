@@ -17,13 +17,29 @@ public final class PlayerRecord implements IRecord, Serializable {
      */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The ID of the player.
+     */
     private final int id;
 
+    /**
+     * The name of the player.
+     */
     @NotNull
     private final String playerName;
 
+    /**
+     * Is the player read to play?
+     * Used in the lobby.
+     */
     private final boolean ready;
 
+    /**
+     * Constructor.
+     * @param id the ID of the player
+     * @param playerName the name of the player
+     * @param ready is the player read to play?
+     */
     public PlayerRecord(int id, @NotNull String playerName, boolean ready) {
         this.id = id;
         this.playerName = playerName;
@@ -39,11 +55,19 @@ public final class PlayerRecord implements IRecord, Serializable {
                 '}';
     }
 
+    /**
+     * Get the player name.
+     * @return the player name
+     */
     @NotNull
     public String getPlayerName() {
         return playerName;
     }
 
+    /**
+     * Is the player read in the lobby?
+     * @return true if the player is read
+     */
     public boolean isReady() {
         return ready;
     }
