@@ -4,8 +4,6 @@ jdk:
   - openjdk7
 
 before_script:
-  - export LIBGL_ALWAYS_INDIRECT=yes
-  - Xvfb :5 +extension RANDR -screen 0 1280x1024x24 &
-  - echo $LIBGL_ALWAYS_INDIRECT
+  - Xvfb :5 +extension RANDR 1280x1024x24 &
   - export DISPLAY=:5.0
 
