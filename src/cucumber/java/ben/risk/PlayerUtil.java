@@ -22,20 +22,14 @@ public final class PlayerUtil {
     private PlayerUtil() { }
 
     public static void clickWidget(@NotNull PlayerWindow playerWindow, @NotNull String[] widgetPath) throws NotFoundException, AWTException {
-        System.out.println("clickWidget " + Arrays.asList(widgetPath).toString());
-
         playerWindow.requestFocus();
 
         Vec2i pos = getWidgetPos(playerWindow, widgetPath);
 
         clickMouse(playerWindow, MouseEvent.BUTTON1, pos);
-
-        System.out.println("  clickWidget done");
     }
 
     public static void typeIntoField(@NotNull PlayerWindow playerWindow, @NotNull String[] widgetPath, @NotNull String text) throws NotFoundException, AWTException {
-        System.out.println("typeIntoField " + Arrays.asList(widgetPath).toString() + " '" + text + "'");
-
         playerWindow.requestFocus();
 
         Vec2i pos = getWidgetPos(playerWindow, widgetPath);
@@ -58,8 +52,6 @@ public final class PlayerUtil {
                 releaseKey(playerWindow, KeyEvent.VK_SHIFT, (char) 0);
             }
         }
-
-        System.out.println("  typeIntoField done");
     }
 
     private static void typeKey(@NotNull PlayerWindow playerWindow, short keyCode, char keyChar) {
