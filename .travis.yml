@@ -4,6 +4,6 @@ jdk:
   - oraclejdk8
 
 before_script:
-  - Xvfb :5 -extension RANDR -screen 0 1280x1024x24 &
+  - Xvfb :5 +extension RANDR -screen 0 1280x1024x24 &
   - export DISPLAY=:5.0
 
