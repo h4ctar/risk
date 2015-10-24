@@ -4,6 +4,6 @@ jdk:
   - openjdk7
 
 before_script:
-  - Xvfb :5 +extension RANDR 1280x1024x24 &
+  - Xvfb :5 +extension RANDR &
   - export DISPLAY=:5.0
 
