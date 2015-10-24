@@ -17,13 +17,19 @@ public final class LoginPane {
     public LoginPane(@NotNull IPlayerWindow playerWindow) {
         VerticalPane centerPane = new VerticalPane("LOGIN_PANE");
 
-        JoinLobbyAction joinLobbyAction = new JoinLobbyAction(playerWindow);
+        final JoinLobbyAction joinLobbyAction = new JoinLobbyAction(playerWindow);
 
         HorizontalPane serverIpPane = new HorizontalPane(null);
         serverIpPane.add(new Label(null, "  Server IP:"));
         TextField<String> serverIpField = new TextField<>("SERVER_IP", StringConverter.STRING_CONVERTER);
         serverIpField.setValue("127.0.0.1");
-        serverIpField.addValueListener(joinLobbyAction::setAddress);
+        serverIpField.addValueListener(new IValueListener<String>() {
+
+            @Override
+            public void valueChanged(String value) {
+                joinLobbyAction.setAddress(value);
+            }
+        });
         serverIpPane.add(serverIpField);
         centerPane.add(serverIpPane);
 
@@ -31,7 +37,13 @@ public final class LoginPane {
         serverPortPane.add(new Label(null, "Server Port:"));
         TextField<Integer> serverPortField = new TextField<>("SERVER_PORT", IntegerConverter.INT_CONVERTER);
         serverPortField.setValue(1234);
-        serverPortField.addValueListener(joinLobbyAction::setPort);
+        serverPortField.addValueListener(new IValueListener<Integer>() {
+
+            @Override
+            public void valueChanged(Integer value) {
+                joinLobbyAction.setPort(value);
+            }
+        });
         serverPortPane.add(serverPortField);
         centerPane.add(serverPortPane);
 
@@ -39,7 +51,12 @@ public final class LoginPane {
         playerNamePane.add(new Label(null, "Player Name:"));
         TextField<String> playerNameField = new TextField<>("PLAYER_NAME", StringConverter.STRING_CONVERTER);
         playerNameField.setValue("Ben");
-        playerNameField.addValueListener(joinLobbyAction::setPlayerName);
+        playerNameField.addValueListener(new IValueListener<String>() {
+            @Override
+            public void valueChanged(String value) {
+                joinLobbyAction.setPlayerName(value);
+            }
+        });
         playerNamePane.add(playerNameField);
         centerPane.add(playerNamePane);
 

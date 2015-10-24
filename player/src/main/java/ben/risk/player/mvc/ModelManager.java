@@ -74,7 +74,9 @@ public class ModelManager<K, T extends IModel> {
     public final void addListener(@NotNull IModelManagerListener<T> listener) {
         assert !listeners.contains(listener);
         listeners.add(listener);
-        models.values().forEach(listener::modelAdded);
+        for (T model : models.values()) {
+            listener.modelAdded(model);
+        }
     }
 
     /**
