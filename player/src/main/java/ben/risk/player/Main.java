@@ -1,6 +1,6 @@
 package ben.risk.player;
 
-import javax.media.opengl.GLProfile;
+import com.jogamp.opengl.GLProfile;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
