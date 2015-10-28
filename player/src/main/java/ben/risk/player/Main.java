@@ -10,7 +10,7 @@ import java.io.IOException;
  */
 public final class Main {
 
-    static { GLProfile.initSingleton(true); }
+    static { GLProfile.initSingleton(); }
 
     /**
      * The player window.
