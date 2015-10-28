@@ -1,5 +1,6 @@
 package ben.risk.player;
 
+import javax.media.opengl.GLProfile;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
@@ -8,6 +9,8 @@ import java.io.IOException;
  * Main class.
  */
 public final class Main {
+
+    static { GLProfile.initSingleton(true); }
 
     /**
      * The player window.
